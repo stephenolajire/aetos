@@ -41,7 +41,6 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (
@@ -55,7 +54,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Close dropdown on route change
   useEffect(() => {
     setCareersOpen(false);
     setMenuOpen(false);
@@ -77,14 +75,16 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
+            {/* ── Logo ── */}
             <Link to="/" className="flex items-center gap-2 group">
-              <span className="font-display text-2xl font-bold tracking-tight text-primary">
-                ae<span className="text-brand">tos</span>
-              </span>
+              <img
+                src="/logo.jpeg"
+                alt="Aetos"
+                className="h-15 w-auto rounded-3xl object-contain"
+              />
             </Link>
 
-            {/* Desktop Nav */}
+            {/* ── Desktop Nav ── */}
             <nav className="hidden md:flex items-center gap-1">
               {navItems.map((item) => (
                 <NavLink
@@ -161,9 +161,8 @@ export default function Navbar() {
               </div>
             </nav>
 
-            {/* Right controls */}
+            {/* ── Right controls ── */}
             <div className="flex items-center gap-3">
-              {/* Theme toggle */}
               <button
                 onClick={toggleTheme}
                 aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
@@ -172,7 +171,6 @@ export default function Navbar() {
                 {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
 
-              {/* CTA */}
               <button
                 onClick={openModal}
                 className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand text-black font-display font-semibold text-sm hover:bg-brand-green-dim transition-colors duration-200"
@@ -180,7 +178,6 @@ export default function Navbar() {
                 Get Started
               </button>
 
-              {/* Mobile hamburger */}
               <button
                 onClick={() => setMenuOpen((prev) => !prev)}
                 className="md:hidden w-9 h-9 flex items-center justify-center text-secondary hover:text-primary"
@@ -193,7 +190,7 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
+      {/* ── Mobile Menu Overlay ── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -204,6 +201,7 @@ export default function Navbar() {
             className={`fixed inset-0 z-40 pt-16 ${isDark ? "bg-[#0a0a0a]" : "bg-white"}`}
           >
             <nav className="flex flex-col p-6 gap-2">
+              {/* Regular nav items */}
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.href}
@@ -228,33 +226,72 @@ export default function Navbar() {
                 </motion.div>
               ))}
 
-              {/* Careers section in mobile */}
+              {/* ── Careers — same style as other nav items ── */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navItems.length * 0.06 }}
+                className="flex flex-col gap-0"
               >
-                <p className="px-4 pt-4 pb-2 text-xs font-display font-semibold uppercase tracking-widest text-muted">
+                {/* Careers parent row — tappable to expand */}
+                <button
+                  onClick={() => setCareersOpen((v) => !v)}
+                  className={`flex items-center justify-between px-4 py-4 text-xl font-display font-semibold rounded-xl transition-all w-full text-left ${
+                    isCareersActive
+                      ? "text-brand"
+                      : "text-primary hover:text-brand"
+                  }`}
+                >
                   Careers
-                </p>
-                {careersItems.map(({ label, href }) => (
-                  <NavLink
-                    key={href}
-                    to={href}
-                    onClick={() => setMenuOpen(false)}
-                    className={({ isActive }) =>
-                      `block px-4 py-3 text-lg font-display font-semibold rounded-xl transition-all ${
-                        isActive
-                          ? "text-brand"
-                          : "text-primary hover:text-brand"
-                      }`
-                    }
-                  >
-                    {label}
-                  </NavLink>
-                ))}
+                  <ChevronDown
+                    size={18}
+                    className="transition-transform duration-200"
+                    style={{
+                      transform: careersOpen
+                        ? "rotate(180deg)"
+                        : "rotate(0deg)",
+                    }}
+                  />
+                </button>
+
+                {/* Sub-items — slide down */}
+                <AnimatePresence>
+                  {careersOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden pl-4"
+                    >
+                      {careersItems.map(({ label, href }, i) => (
+                        <motion.div
+                          key={href}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05 }}
+                        >
+                          <NavLink
+                            to={href}
+                            onClick={() => setMenuOpen(false)}
+                            className={({ isActive }) =>
+                              `block px-4 py-3 text-lg font-display font-semibold rounded-xl transition-all ${
+                                isActive
+                                  ? "text-brand"
+                                  : "text-primary hover:text-brand"
+                              }`
+                            }
+                          >
+                            {label}
+                          </NavLink>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
+              {/* Get Started CTA */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

@@ -116,7 +116,6 @@ function ProjectModal({
 }) {
   const { details } = project;
 
-  // Lock body scroll while open
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -125,7 +124,6 @@ function ProjectModal({
     };
   }, []);
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -172,20 +170,34 @@ function ProjectModal({
             className="flex items-center justify-between px-6 pt-4 pb-4 shrink-0 border-b"
             style={{ borderColor: isDark ? "#1e1e1e" : "#e8e8e8" }}
           >
-            {/* Hero gradient mini badge */}
             <div className="flex items-center gap-3">
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center font-display font-bold text-sm shrink-0"
+                className="w-10 h-10 rounded-xl overflow-hidden shrink-0"
                 style={{ background: project.heroGradient }}
               >
-                <span
-                  style={{
-                    color: project.id === "mycliq" ? "#1a0a00" : "#ffffff",
-                    fontSize: 11,
-                  }}
-                >
-                  {project.logoText}
-                </span>
+                {project.image ? (
+                  <img
+                    src={
+                      typeof project.image === "string"
+                        ? project.image
+                        : (project.image as { src: string }).src
+                    }
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span
+                      style={{
+                        color: project.id === "mycliq" ? "#1a0a00" : "#ffffff",
+                        fontSize: 11,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {project.logoText}
+                    </span>
+                  </div>
+                )}
               </div>
               <div>
                 <h2 className="font-display font-bold text-base text-primary leading-tight">
@@ -193,7 +205,7 @@ function ProjectModal({
                 </h2>
                 {details?.category && (
                   <p className="text-muted text-xs font-body mt-0.5">
-                    {details.category}
+                    {details.category.replace("\n", " ")}
                   </p>
                 )}
               </div>
@@ -217,7 +229,6 @@ function ProjectModal({
 
           {/* ── Scrollable body ── */}
           <div className="overflow-y-auto flex-1 px-6 py-6 flex flex-col gap-7">
-            {/* Description */}
             <div>
               <h4 className="font-display font-semibold text-sm text-primary mb-2">
                 Project Description
@@ -227,9 +238,8 @@ function ProjectModal({
               </p>
             </div>
 
-            {/* Meta grid */}
             <div
-              className={`grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 pb-7 border-b`}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 pb-7 border-b"
               style={{ borderColor: isDark ? "#1e1e1e" : "#e8e8e8" }}
             >
               {[
@@ -247,7 +257,6 @@ function ProjectModal({
               ))}
             </div>
 
-            {/* Technologies */}
             {details?.technologies?.length ? (
               <div
                 className="pb-7 border-b"
@@ -268,7 +277,6 @@ function ProjectModal({
               </div>
             ) : null}
 
-            {/* Team members */}
             {details?.teamGroups?.length ? (
               <div
                 className="pb-7 border-b"
@@ -305,7 +313,6 @@ function ProjectModal({
               </div>
             ) : null}
 
-            {/* Methods used */}
             {details?.methodsUsed?.length ? (
               <div>
                 <h4 className="font-display font-semibold text-sm text-primary mb-4">
@@ -339,13 +346,21 @@ function ProjectModal({
 // ── ProjectCard ───────────────────────────────────────────────────────────────
 interface Props {
   project: Project;
-  defaultOpen?: boolean;
   index: number;
 }
 
 export default function ProjectCard({ project, index }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const { isDark } = useTheme();
+
+  // Normalize image src — handles both string paths and imported module objects
+  const imageSrc =
+    project.image && typeof project.image === "object"
+      ? (project.image as { src: string }).src
+      : (project.image as string);
+
+  const hasImage = !!imageSrc && !imgError;
 
   return (
     <>
@@ -360,7 +375,7 @@ export default function ProjectCard({ project, index }: Props) {
         }}
         className="w-full"
       >
-        {/* ── Hero image card ── */}
+        {/* ── Hero card ── */}
         <div
           className="relative w-full rounded-2xl overflow-hidden flex items-center justify-center cursor-pointer group"
           style={{
@@ -378,34 +393,49 @@ export default function ProjectCard({ project, index }: Props) {
                 "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")",
             }}
           />
-          {/* Hover overlay */}
+
+          {/* ── IMAGE (rendered when available) ── */}
+          {hasImage && (
+            <img
+              src={imageSrc}
+              alt={project.title}
+              onError={() => setImgError(true)}
+              className="absolute inset-0 w-full h-full object-cover z-10"
+            />
+          )}
+
+          {/* Hover overlay — sits above image */}
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20"
             style={{ background: "rgba(0,0,0,0.35)" }}
           >
             <span className="font-display font-semibold text-sm text-white flex items-center gap-2">
               View Details <ArrowUpRight size={14} />
             </span>
           </div>
-          <span
-            className="relative z-10 font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight"
-            style={{
-              color:
-                project.id === "mycliq"
-                  ? "#1a0a00"
-                  : project.id === "chatrizz"
-                    ? "#ffffff"
-                    : project.id === "sync360"
+
+          {/* Logo text — shown only when there's no image */}
+          {!hasImage && (
+            <span
+              className="relative z-10 font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight"
+              style={{
+                color:
+                  project.id === "mycliq"
+                    ? "#1a0a00"
+                    : project.id === "chatrizz"
                       ? "#ffffff"
-                      : "#ffffff",
-              textShadow:
-                project.id === "chatrizz"
-                  ? "0 2px 20px rgba(0,180,216,0.4)"
-                  : "none",
-            }}
-          >
-            {project.logoText}
-          </span>
+                      : project.id === "sync360"
+                        ? "#ffffff"
+                        : "#ffffff",
+                textShadow:
+                  project.id === "chatrizz"
+                    ? "0 2px 20px rgba(0,180,216,0.4)"
+                    : "none",
+              }}
+            >
+              {project.logoText}
+            </span>
+          )}
         </div>
 
         {/* ── Info bar ── */}
@@ -444,7 +474,6 @@ export default function ProjectCard({ project, index }: Props) {
         <div className="h-4" />
       </motion.div>
 
-      {/* ── Modal ── */}
       {modalOpen && (
         <ProjectModal
           project={project}

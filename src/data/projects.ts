@@ -1,4 +1,5 @@
-import type { Project } from "../types";
+import type { Project } from "../types"
+
 
 export const projects: Project[] = [
   {
@@ -9,7 +10,7 @@ export const projects: Project[] = [
       "Fintech & payment platform — enabling businesses to collect payments and manage cash flow.",
     heroGradient:
       "linear-gradient(160deg, #fff5ee 0%, #ffd4a8 40%, #ff8c3a 75%, #cc5500 100%)",
-    image: "/images/projects/mycliq.jpg",
+    image: "/mycliq.png",
     logoText: "✦ mycliq",
     accentColor: "#f97316",
     details: {
@@ -43,7 +44,7 @@ export const projects: Project[] = [
       "Social media + global marketplace enabling users to connect, chat and trade seamlessly.",
     heroGradient:
       "linear-gradient(160deg, #002233 0%, #004466 30%, #00bbcc 75%, #00e5ff 100%)",
-    image: "/images/projects/chatrizz.jpg",
+    image: "/chatrizz.jpg",
     logoText: "Chatrizz",
     accentColor: "#00b4d8",
     details: {
@@ -77,7 +78,7 @@ export const projects: Project[] = [
       "Business operations platform — manage inventory, sales, expenses & payments. All in one place.",
     heroGradient:
       "linear-gradient(160deg, #001a00 0%, #003300 30%, #006600 70%, #33aa33 100%)",
-    image: "/images/projects/sync360.jpg",
+    image: "/sync.png",
     logoText: "Sync360",
     accentColor: "#4ade80",
     details: {
@@ -111,7 +112,7 @@ export const projects: Project[] = [
       "Healthcare platform connecting nurses & community health workers to patients for home care services.",
     heroGradient:
       "linear-gradient(160deg, #001133 0%, #002255 30%, #003388 70%, #0055cc 100%)",
-    image: "/images/projects/toltim.jpg",
+    image: "/toltim.png",
     logoText: "Toltim",
     accentColor: "#60a5fa",
     details: {
@@ -145,7 +146,7 @@ export const projects: Project[] = [
       "Collaborative workspace built for developer teams — ideate together, assign tasks, track progress, and run live meetings all in one unified platform.",
     heroGradient:
       "linear-gradient(160deg, #0e0020 0%, #1a0040 30%, #3d0099 70%, #7c3aed 100%)",
-    image: "",
+    image: "/bords.png",
     logoText: "Bords",
     accentColor: "#a78bfa",
     details: {
@@ -201,6 +202,53 @@ export const projects: Project[] = [
       startDate: "October 1, 2024",
       completedDate: "March 1, 2025",
       technologies: ["Figma", "React Native", "Django", "PostgreSQL"],
+      teamGroups: [
+        {
+          role: "Mobile Developers",
+          members: [{ name: "Seun Afolabi" }, { name: "Kolade Bello" }],
+        },
+        {
+          role: "UI UX Designer",
+          members: [{ name: "Amara Obi" }],
+        },
+        {
+          role: "Project Manager",
+          members: [{ name: "Femi Adeyinka" }],
+        },
+      ],
+      methodsUsed: [
+        "Agile Development",
+        "User Research",
+        "Usability Testing",
+        "API Integration",
+      ],
+      features: [
+        "Artisan Booking",
+        "Real-time Tracking",
+        "In-app Payments",
+        "Ratings & Reviews",
+        "Service History",
+        "Push Notifications",
+      ],
+    },
+  },
+  {
+    id: "WagesFinance",
+    title: "WagesFinance",
+    tags: ["On-demand Services", "Web app"],
+    description:
+      "A platform for supporting business or individuals with loand",
+    heroGradient:
+      "linear-gradient(160deg, #1a0a00 0%, #3d1500 30%, #b84500 70%, #ff6b1a 100%)",
+    image: "/wages.png",
+    logoText: "WagesFinance",
+    accentColor: "#fb923c",
+    details: {
+      category: "Website\nDevelopment.",
+      timeTaken: "5 Months",
+      startDate: "October 1, 2024",
+      completedDate: "March 1, 2025",
+      technologies: ["Figma", "React", "Django", "PostgreSQL"],
       teamGroups: [
         {
           role: "Mobile Developers",

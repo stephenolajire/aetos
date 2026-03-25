@@ -123,7 +123,7 @@ export default function ProjectsPage() {
                 key={project.id}
                 project={project}
                 index={i}
-                defaultOpen={i === 0}
+                // defaultOpen={i === 0}
               />
             ))}
           </div>
