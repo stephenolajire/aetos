@@ -69,7 +69,7 @@ export default function FAQ() {
   return (
     <section
       ref={ref}
-      className={`section-pad ${isDark ? 'bg-[#0a0a0a]' : 'bg-[#f8f8f6]'}`}
+      className={`section-pad ${isDark ? "bg-[#0a0a0a]" : "bg-[#f8f8f6]"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -80,11 +80,12 @@ export default function FAQ() {
           className="text-center mb-12"
         >
           <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-4">
-            Frequently <span className="text-brand">Asked</span> Questions
+            Frequently <span className="text-[#77D4D3]">Asked Questions</span>
           </h2>
           <p className="text-secondary font-body max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            Got questions? We've got answers. Check our frequently asked questions for insights
-            into our capabilities, services, pricing, and more. Transparency is at the heart of how we work.
+            Got questions? We've got answers. Check our frequently asked
+            questions for insights into our capabilities, services, pricing, and
+            more. Transparency is at the heart of how we work.
           </p>
         </motion.div>
 
@@ -97,8 +98,11 @@ export default function FAQ() {
                   key={faq.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: (ci * left.length + i) * 0.05 }}
-                  className={`card overflow-hidden ${isDark ? '' : 'bg-white'}`}
+                  transition={{
+                    duration: 0.5,
+                    delay: (ci * left.length + i) * 0.05,
+                  }}
+                  className={`card overflow-hidden ${isDark ? "" : "bg-white"}`}
                 >
                   <button
                     onClick={() => toggle(faq.id)}
@@ -108,7 +112,11 @@ export default function FAQ() {
                       {faq.question}
                     </span>
                     <span className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full border border-subtle text-muted">
-                      {openId === faq.id ? <Minus size={12} /> : <Plus size={12} />}
+                      {openId === faq.id ? (
+                        <Minus size={12} />
+                      ) : (
+                        <Plus size={12} />
+                      )}
                     </span>
                   </button>
 
@@ -116,7 +124,7 @@ export default function FAQ() {
                     {openId === faq.id && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
+                        animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                       >
@@ -135,5 +143,5 @@ export default function FAQ() {
         </div>
       </div>
     </section>
-  )
+  );
 }

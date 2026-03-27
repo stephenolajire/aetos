@@ -79,17 +79,7 @@ export default function ProjectsPage() {
               transition={{ duration: 0.5 }}
               className="flex justify-center mb-6"
             >
-              <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-display font-semibold text-secondary"
-                style={{
-                  background: isDark
-                    ? "rgba(255,255,255,0.05)"
-                    : "rgba(0,0,0,0.05)",
-                  border: `1px solid ${isDark ? "#2a2a2a" : "#d8d8d8"}`,
-                }}
-              >
-                Selected Work
-              </div>
+              
             </motion.div>
 
             <motion.h1

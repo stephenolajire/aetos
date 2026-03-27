@@ -93,17 +93,17 @@ function WorkCard({
 
         {/* Info */}
         <div
-          className={`p-5 ${isDark ? "bg-[#111111]" : "bg-white"} border-t border-subtle`}
+          className={`p-5 ${isDark ? "bg-dark-surface" : "bg-white"} border-t border-subtle`}
         >
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h3 className="font-display font-bold text-base text-primary mb-1">
+              <h3 className="font-display font-bold text-2xl text-primary mb-1">
                 {project.title}
               </h3>
-              <p className="text-muted text-xs font-body mb-2">
+              <p className="text-gray-400 text-lg font-body mb-2">
                 Category: {project.tags[0]}
               </p>
-              <p className="text-secondary text-xs font-body leading-relaxed line-clamp-2">
+              <p className="text-secondary text-base font-body leading-relaxed line-clamp-2">
                 {project.description}
               </p>
             </div>
@@ -137,7 +137,7 @@ export default function Works() {
           className="text-center mb-12 lg:mb-16"
         >
           <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-4">
-            Our Works
+            Our <span className="text-brand">Works</span>
           </h2>
           <p className="text-secondary font-body max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
             Aetos is the lifeblood of our previous projects. Our portfolio

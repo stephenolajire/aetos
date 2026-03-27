@@ -50,13 +50,14 @@ export default function WhyChooseUs() {
   return (
     <section
       ref={ref}
-      className={`section-pad relative overflow-hidden ${isDark ? 'bg-[#0a0a0a]' : 'bg-[#f8f8f6]'}`}
+      className={`section-pad relative overflow-hidden ${isDark ? "bg-[#0a0a0a]" : "bg-light-card"}`}
     >
       {/* Background glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(127,255,0,0.04) 0%, transparent 70%)',
+          background:
+            "radial-gradient(circle, rgba(127,255,0,0.04) 0%, transparent 70%)",
         }}
       />
 
@@ -68,33 +69,38 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 lg:mb-16"
         >
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-2">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-[#5E98DA] mb-2">
             Why Choose Us for
           </h2>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-brand mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-4">
             Your Digital Journey
           </h2>
           <p className="text-secondary font-body max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            Partnering with us offers a multitude of advantages. Gain increased brand visibility,
-            improved customer engagement, and higher ROI. Our digital solutions are designed to meet
-            your unique business needs, ensuring lasting success.
+            Partnering with us offers a multitude of advantages. Gain increased
+            brand visibility, improved customer engagement, and higher ROI. Our
+            digital solutions are designed to meet your unique business needs,
+            ensuring lasting success.
           </p>
         </motion.div>
 
         {/* Cards grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {reasons.map((reason, i) => {
-            const Icon = reason.icon
+            const Icon = reason.icon;
             return (
               <motion.div
                 key={reason.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className={`card group p-6 hover:border-brand/30 transition-all duration-300 ${isDark ? '' : 'bg-white'}`}
+                transition={{
+                  duration: 0.55,
+                  delay: i * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={`card group p-6 hover:border-brand/30 flex flex-col items-center justify-center transition-all duration-300 ${isDark ? "" : "bg-white"}`}
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-brand/10 border border-brand/20 mb-5 group-hover:bg-brand/20 transition-colors">
-                  <Icon size={20} className="text-brand" />
+                <div className="w-16 h-16  rounded-full flex items-center justify-center bg-brand/10 border border-brand/20 mb-5 group-hover:bg-brand/20 transition-colors">
+                  <Icon size={20} className="text-primary" />
                 </div>
                 <h3 className="font-display font-bold text-base text-primary mb-2">
                   {reason.title}
@@ -103,10 +109,10 @@ export default function WhyChooseUs() {
                   {reason.description}
                 </p>
               </motion.div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

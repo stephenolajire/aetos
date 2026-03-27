@@ -198,7 +198,7 @@ function Divider({ isDark }: { isDark: boolean }) {
 
 function SectionLabel({ text }: { text: string }) {
   return (
-    <h3 className="font-display font-semibold text-xs uppercase tracking-widest text-brand mb-5">
+    <h3 className="font-display font-semibold text-xs uppercase tracking-widest text-primary mb-5">
       {text}
     </h3>
   );
@@ -236,7 +236,7 @@ function DetailBlock({
         </span>
         <ChevronDown
           size={15}
-          className="text-brand shrink-0 transition-transform duration-300"
+          className="text-primary shrink-0 transition-transform duration-300"
           style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
         />
       </button>
@@ -285,7 +285,7 @@ function StatsBar({ isDark }: { isDark: boolean }) {
           }}
         >
           <div className="flex items-baseline gap-1">
-            <span className="font-display font-bold text-2xl sm:text-3xl text-brand">
+            <span className="font-display font-bold text-2xl sm:text-3xl text-primary">
               {value}
             </span>
             {unit && (
@@ -379,7 +379,7 @@ export default function MentorshipPage() {
               className="flex justify-center mb-6"
             >
               <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-display font-semibold text-brand"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-display font-semibold text-primary"
                 style={{
                   background: isDark
                     ? "rgba(127,255,0,0.08)"
@@ -397,7 +397,7 @@ export default function MentorshipPage() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-center text-brand"
+              className="font-display font-bold text-center text-primary"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.1 }}
             >
               Aetos Talent Factory
@@ -433,7 +433,7 @@ export default function MentorshipPage() {
             >
               <button
                 onClick={() => openModalById("internship")}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-display font-bold text-sm bg-brand text-black hover:opacity-90 transition-all duration-200 group"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-display font-bold text-sm bg-white text-black hover:opacity-90 transition-all duration-200 group"
               >
                 Apply Now
                 <ArrowRight
@@ -481,7 +481,7 @@ export default function MentorshipPage() {
                       border: "1px solid rgba(127,255,0,0.18)",
                     }}
                   >
-                    <Icon size={13} className="text-brand" />
+                    <Icon size={13} className="text-primary" />
                   </div>
                   <span className="font-body text-xs text-primary leading-tight">
                     {label}
@@ -501,7 +501,7 @@ export default function MentorshipPage() {
                 <div key={title} className="flex gap-3">
                   <CheckCircle2
                     size={15}
-                    className="text-brand shrink-0 mt-0.5"
+                    className="text-primary shrink-0 mt-0.5"
                   />
                   <div>
                     <p className="font-body font-semibold text-sm text-primary">
@@ -528,7 +528,7 @@ export default function MentorshipPage() {
                       border: "1px solid rgba(127,255,0,0.18)",
                     }}
                   >
-                    <Icon size={13} className="text-brand" />
+                    <Icon size={13} className="text-primary" />
                   </div>
                   <div>
                     <p className="font-body font-semibold text-sm text-primary">
@@ -571,7 +571,7 @@ export default function MentorshipPage() {
                       border: "1px solid rgba(127,255,0,0.18)",
                     }}
                   >
-                    <Icon size={14} className="text-brand" />
+                    <Icon size={14} className="text-primary" />
                   </div>
                   <div>
                     <p className="font-body font-semibold text-sm text-primary leading-tight">
@@ -606,7 +606,7 @@ export default function MentorshipPage() {
                   }}
                 >
                   <div
-                    className="w-7 h-7 rounded-full flex items-center justify-center font-display font-bold text-xs text-brand shrink-0"
+                    className="w-7 h-7 rounded-full flex items-center justify-center font-display font-bold text-xs text-primary shrink-0"
                     style={{
                       background: "rgba(127,255,0,0.10)",
                       border: "1px solid rgba(127,255,0,0.22)",
@@ -649,7 +649,7 @@ export default function MentorshipPage() {
                   <p className="text-secondary font-body text-sm leading-relaxed italic mb-3">
                     "{quote}"
                   </p>
-                  <p className="font-display font-semibold text-xs text-brand">
+                  <p className="font-display font-semibold text-xs text-primary">
                     — {name}
                   </p>
                 </div>
@@ -663,7 +663,7 @@ export default function MentorshipPage() {
           <div className="flex flex-col items-center gap-2 py-4">
             <button
               onClick={() => openModalById("internship")}
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-display font-semibold text-sm text-primary hover:text-brand transition-all duration-200 group"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-display font-semibold text-sm text-primary hover:text-primary transition-all duration-200 group"
               style={{ border: `1px solid ${isDark ? "#383838" : "#bbb"}` }}
             >
               Apply Now
@@ -676,7 +676,7 @@ export default function MentorshipPage() {
               Questions? Email us at{" "}
               <a
                 href="mailto:hello@aetosfactory.com"
-                className="text-brand underline underline-offset-2"
+                className="text-primary underline underline-offset-2"
               >
                 hello@aetosfactory.com
               </a>
@@ -717,9 +717,9 @@ function ValueCard({ isDark }: { isDark: boolean }) {
             border: `1px solid ${isDark ? "#2a2a2a" : "#d8d8d8"}`,
           }}
         >
-          <Heart size={16} className="text-brand" />
+          <Heart size={16} className="text-primary" />
         </div>
-        <h3 className="font-display font-bold text-base sm:text-lg text-brand">
+        <h3 className="font-display font-bold text-base sm:text-lg text-primary">
           We value your interest
         </h3>
       </div>

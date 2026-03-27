@@ -203,38 +203,17 @@ export default function HirePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="flex justify-center mb-6"
-            >
-              <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-display font-semibold"
-                style={{
-                  color: isDark ? "#ff9a60" : "#c04010",
-                  background: isDark
-                    ? "rgba(255,140,60,0.08)"
-                    : "rgba(200,80,20,0.07)",
-                  border: isDark
-                    ? "1px solid rgba(255,140,60,0.22)"
-                    : "1px solid rgba(200,80,20,0.20)",
-                }}
-              >
-                <Zap size={11} />
-                Skip the Recruitment Headache
-              </div>
-            </motion.div>
+            ></motion.div>
 
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-center"
+              className="font-display font-bold text-center text-white"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5rem)",
                 lineHeight: 1.1,
-                background:
-                  "linear-gradient(130deg, #ffb899 0%, #ff8050 55%, #d05020 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
               }}
             >
               Hire Developers &amp; Tech Talent
@@ -260,10 +239,10 @@ export default function HirePage() {
             >
               <button
                 onClick={() => openModalById("consultation")}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-display font-bold text-sm text-white hover:opacity-90 transition-all duration-200 group"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-display font-bold text-sm hover:opacity-90 transition-all duration-200 group"
                 style={{
-                  background:
-                    "linear-gradient(130deg, #ff8050 0%, #d05020 100%)",
+                  background: "#ffffff",
+                  color: "#d05020",
                 }}
               >
                 Consult Us Today
@@ -488,10 +467,7 @@ export default function HirePage() {
             </div>
             <button
               onClick={() => openModalById("consultation")}
-              className="shrink-0 inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-display font-bold text-sm text-white hover:opacity-90 transition-all duration-200 group whitespace-nowrap"
-              style={{
-                background: "linear-gradient(130deg, #ff8050 0%, #d05020 100%)",
-              }}
+              className="shrink-0 inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-display font-bold text-sm bg-white text-black hover:opacity-90 transition-all duration-200 group whitespace-nowrap"
             >
               Consult Us Today
               <ArrowRight

@@ -18,7 +18,7 @@ export default function Partners() {
   return (
     <section
       ref={ref}
-      className={`section-pad ${isDark ? 'bg-[#0d0d0d]' : 'bg-[#f0f0ee]'}`}
+      className={`section-pad ${isDark ? "bg-[#0d0d0d]" : "bg-light-card"}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -28,11 +28,12 @@ export default function Partners() {
           className="text-center mb-12"
         >
           <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-4">
-            Our Partners and Clients
+            Our <span className="text[#7D75E0]">Partners and Clients</span>
           </h2>
           <p className="text-secondary font-body max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            We are grateful for the opportunity to work with esteemed partners and clients. Helping
-            businesses and entrepreneurs grow and succeed in the digital realm is our dedication.
+            We are grateful for the opportunity to work with esteemed partners
+            and clients. Our strong relationships are a testament to our
+            dedication and expertise in the digital realm.
           </p>
         </motion.div>
 
@@ -49,7 +50,7 @@ export default function Partners() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className={`card flex items-center justify-center px-6 py-4 min-w-[120px] hover:border-brand/30 transition-all duration-300 cursor-pointer ${isDark ? '' : 'bg-white'}`}
+              className={`card flex items-center justify-center px-6 py-4 min-w-30 hover:border-brand/30 transition-all duration-300 cursor-pointer ${isDark ? "" : "bg-white"}`}
             >
               <span className="font-display font-bold text-lg text-primary">
                 {partner.name}
@@ -59,5 +60,5 @@ export default function Partners() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

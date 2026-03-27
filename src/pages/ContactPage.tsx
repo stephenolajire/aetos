@@ -262,8 +262,9 @@ export default function ContactPage() {
 
   return (
     <>
-      <div className={`min-h-screen pt-20 ${isDark ? 'bg-[#0a0a0a]' : 'bg-light'}`}>
-
+      <div
+        className={`min-h-screen pt-20 ${isDark ? "bg-[#0a0a0a]" : "bg-light"}`}
+      >
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <div
           ref={heroRef}
@@ -276,7 +277,7 @@ export default function ContactPage() {
             className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-5 leading-tight"
           >
             <span className="text-primary">Get in </span>
-            <span className="text-brand">Touch with Us Today!</span>
+            <span className="text-[#1181EA]">Touch with Us Today!</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
@@ -284,10 +285,12 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-secondary font-body text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-8"
           >
-            We value your inquiries, feedback, and collaborations. Whether you are interested in our
-            digital services, have questions about our projects, or want to explore potential
-            partnerships, we encourage you to reach out to our dedicated team. Connect with us through
-            any of the channels below, and we'll be delighted to assist you on your digital journey.
+            We value your inquiries, feedback, and collaborations. Whether you
+            are interested in our digital services, have questions about our
+            projects, or want to explore potential partnerships, we encourage
+            you to reach out to our dedicated team. Connect with us through any
+            of the channels below, and we'll be delighted to assist you on your
+            digital journey.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -297,8 +300,10 @@ export default function ContactPage() {
             <span
               className="inline-flex items-center px-5 py-2.5 rounded-full font-body text-sm text-secondary"
               style={{
-                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                border: `1px solid ${isDark ? '#2a2a2a' : '#d8d8d8'}`,
+                background: isDark
+                  ? "rgba(255,255,255,0.05)"
+                  : "rgba(0,0,0,0.05)",
+                border: `1px solid ${isDark ? "#2a2a2a" : "#d8d8d8"}`,
               }}
             >
               Feel free to contact us through any of the following channels
@@ -307,7 +312,6 @@ export default function ContactPage() {
         </div>
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-16 pb-20">
-
           {/* ── Email section ────────────────────────────────────────────────── */}
           <div ref={emailRef}>
             <SectionHeading title="Contact Us Via Email" inView={emailInView} />
@@ -319,23 +323,36 @@ export default function ContactPage() {
                   animate={emailInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                 >
-                  <Card isDark={isDark} className="p-5 group hover:border-brand/30 transition-all duration-200">
-                    <p className="text-muted text-xs font-body mb-3">{ch.label}</p>
+                  <Card
+                    isDark={isDark}
+                    className="p-5 group hover:border-brand/30 transition-all duration-200"
+                  >
+                    <p className="text-muted text-xs font-body mb-3">
+                      {ch.label}
+                    </p>
                     <a
                       href={ch.href}
                       className="flex items-center justify-between gap-3 group/link"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <Mail size={14} className="text-brand shrink-0" />
-                        <span className="font-body text-sm text-primary truncate group-hover/link:text-brand transition-colors">
+                        <Mail size={14} className="text-primary shrink-0" />
+                        <span className="font-body text-sm text-primary truncate group-hover/link:text-primary transition-colors">
                           {ch.value}
                         </span>
                       </div>
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 group-hover/link:bg-brand"
-                        style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', border: `1px solid ${isDark ? '#2a2a2a' : '#d0d0d0'}` }}
+                        style={{
+                          background: isDark
+                            ? "rgba(255,255,255,0.06)"
+                            : "rgba(0,0,0,0.06)",
+                          border: `1px solid ${isDark ? "#2a2a2a" : "#d0d0d0"}`,
+                        }}
                       >
-                        <ArrowRight size={12} className="text-secondary group-hover/link:text-black transition-colors" />
+                        <ArrowRight
+                          size={12}
+                          className="text-secondary group-hover/link:text-black transition-colors"
+                        />
                       </div>
                     </a>
                   </Card>
@@ -355,23 +372,36 @@ export default function ContactPage() {
                   animate={phoneInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                 >
-                  <Card isDark={isDark} className="p-5 group hover:border-brand/30 transition-all duration-200">
-                    <p className="text-muted text-xs font-body mb-3">{ch.label}</p>
+                  <Card
+                    isDark={isDark}
+                    className="p-5 group hover:border-brand/30 transition-all duration-200"
+                  >
+                    <p className="text-muted text-xs font-body mb-3">
+                      {ch.label}
+                    </p>
                     <a
-                      href={`tel:${ch.value.replace(/\s/g, '')}`}
+                      href={`tel:${ch.value.replace(/\s/g, "")}`}
                       className="flex items-center justify-between gap-3 group/link"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <Phone size={14} className="text-brand shrink-0" />
-                        <span className="font-body text-sm text-primary truncate group-hover/link:text-brand transition-colors">
+                        <Phone size={14} className="text-primary shrink-0" />
+                        <span className="font-body text-sm text-primary truncate group-hover/link:text-primary transition-colors">
                           {ch.value}
                         </span>
                       </div>
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 group-hover/link:bg-brand"
-                        style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)', border: `1px solid ${isDark ? '#2a2a2a' : '#d0d0d0'}` }}
+                        style={{
+                          background: isDark
+                            ? "rgba(255,255,255,0.06)"
+                            : "rgba(0,0,0,0.06)",
+                          border: `1px solid ${isDark ? "#2a2a2a" : "#d0d0d0"}`,
+                        }}
                       >
-                        <ArrowRight size={12} className="text-secondary group-hover/link:text-black transition-colors" />
+                        <ArrowRight
+                          size={12}
+                          className="text-secondary group-hover/link:text-black transition-colors"
+                        />
                       </div>
                     </a>
                   </Card>
@@ -395,30 +425,38 @@ export default function ContactPage() {
                   animate={officeInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.55, delay: i * 0.1 }}
                 >
-                  <Card isDark={isDark} className="overflow-hidden group hover:border-brand/25 transition-all duration-300">
+                  <Card
+                    isDark={isDark}
+                    className="overflow-hidden group hover:border-brand/25 transition-all duration-300"
+                  >
                     {/* Map placeholder */}
                     <div
                       className="relative h-44 flex items-center justify-center overflow-hidden"
                       style={{
                         background: isDark
-                          ? 'linear-gradient(135deg, #141414 0%, #1a1a1a 100%)'
-                          : 'linear-gradient(135deg, #e8e8e6 0%, #f0f0ee 100%)',
+                          ? "linear-gradient(135deg, #141414 0%, #1a1a1a 100%)"
+                          : "linear-gradient(135deg, #e8e8e6 0%, #f0f0ee 100%)",
                       }}
                     >
                       {/* Grid texture */}
                       <div
                         className="absolute inset-0 opacity-[0.07]"
                         style={{
-                          backgroundImage: `linear-gradient(${isDark ? '#fff' : '#000'} 1px, transparent 1px), linear-gradient(90deg, ${isDark ? '#fff' : '#000'} 1px, transparent 1px)`,
-                          backgroundSize: '30px 30px',
+                          backgroundImage: `linear-gradient(${isDark ? "#fff" : "#000"} 1px, transparent 1px), linear-gradient(90deg, ${isDark ? "#fff" : "#000"} 1px, transparent 1px)`,
+                          backgroundSize: "30px 30px",
                         }}
                       />
                       {/* Location pin icon */}
                       <div
                         className="relative w-12 h-12 rounded-full flex items-center justify-center"
-                        style={{ background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)', border: `1px solid ${isDark ? '#2a2a2a' : '#d0d0d0'}` }}
+                        style={{
+                          background: isDark
+                            ? "rgba(255,255,255,0.08)"
+                            : "rgba(0,0,0,0.08)",
+                          border: `1px solid ${isDark ? "#2a2a2a" : "#d0d0d0"}`,
+                        }}
                       >
-                        <MapPin size={20} className="text-brand" />
+                        <MapPin size={20} className="text-primary" />
                       </div>
                     </div>
 
@@ -434,11 +472,18 @@ export default function ContactPage() {
                         href={office.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs font-display font-semibold text-primary hover:text-brand transition-colors group/dir"
-                        style={{ border: `1px solid ${isDark ? '#2a2a2a' : '#d8d8d8'}`, borderRadius: '0.5rem', padding: '0.4rem 0.85rem' }}
+                        className="inline-flex items-center gap-2 text-xs font-display font-semibold text-primary hover:text-primary transition-colors group/dir"
+                        style={{
+                          border: `1px solid ${isDark ? "#2a2a2a" : "#d8d8d8"}`,
+                          borderRadius: "0.5rem",
+                          padding: "0.4rem 0.85rem",
+                        }}
                       >
                         Get Direction
-                        <ArrowRight size={12} className="group-hover/dir:translate-x-0.5 transition-transform" />
+                        <ArrowRight
+                          size={12}
+                          className="group-hover/dir:translate-x-0.5 transition-transform"
+                        />
                       </a>
                     </div>
                   </Card>
@@ -468,17 +513,33 @@ export default function ContactPage() {
                   >
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center"
-                      style={{ background: 'rgba(127,255,0,0.12)', border: '2px solid rgba(127,255,0,0.3)' }}
+                      style={{
+                        background: "rgba(127,255,0,0.12)",
+                        border: "2px solid rgba(127,255,0,0.3)",
+                      }}
                     >
                       <span className="text-2xl">✓</span>
                     </div>
-                    <h3 className="font-display font-bold text-xl text-primary">Inquiry Sent!</h3>
+                    <h3 className="font-display font-bold text-xl text-primary">
+                      Inquiry Sent!
+                    </h3>
                     <p className="text-secondary font-body text-sm max-w-sm">
-                      Thank you for reaching out. We'll get back to you within 24 hours.
+                      Thank you for reaching out. We'll get back to you within
+                      24 hours.
                     </p>
                     <button
-                      onClick={() => { setSubmitted(false); setForm({ name:'', email:'', phone:'', company:'', subject:'', message:'' }) }}
-                      className="mt-2 px-6 py-2.5 rounded-lg border border-subtle text-secondary hover:border-brand hover:text-brand font-display font-semibold text-sm transition-all duration-200"
+                      onClick={() => {
+                        setSubmitted(false);
+                        setForm({
+                          name: "",
+                          email: "",
+                          phone: "",
+                          company: "",
+                          subject: "",
+                          message: "",
+                        });
+                      }}
+                      className="mt-2 px-6 py-2.5 rounded-lg border border-subtle text-secondary hover:border-brand hover:text-primary font-display font-semibold text-sm transition-all duration-200"
                     >
                       Send Another
                     </button>
@@ -487,27 +548,69 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     {/* Row 1: Name / Email / Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <Input label="Name" placeholder="Enter your Name" value={form.name} onChange={set('name')} isDark={isDark} required />
-                      <Input label="Email" type="email" placeholder="Enter your Email" value={form.email} onChange={set('email')} isDark={isDark} required />
-                      <Input label="Phone Number" type="tel" placeholder="Enter your Phone Number" value={form.phone} onChange={set('phone')} isDark={isDark} />
+                      <Input
+                        label="Name"
+                        placeholder="Enter your Name"
+                        value={form.name}
+                        onChange={set("name")}
+                        isDark={isDark}
+                        required
+                      />
+                      <Input
+                        label="Email"
+                        type="email"
+                        placeholder="Enter your Email"
+                        value={form.email}
+                        onChange={set("email")}
+                        isDark={isDark}
+                        required
+                      />
+                      <Input
+                        label="Phone Number"
+                        type="tel"
+                        placeholder="Enter your Phone Number"
+                        value={form.phone}
+                        onChange={set("phone")}
+                        isDark={isDark}
+                      />
                     </div>
 
                     {/* Row 2: Company / Subject */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Input label="Company / Organization Name" placeholder="Enter Name" value={form.company} onChange={set('company')} isDark={isDark} />
-                      <SelectInput label="Subject" value={form.subject} onChange={set('subject')} options={subjects} isDark={isDark} />
+                      <Input
+                        label="Company / Organization Name"
+                        placeholder="Enter Name"
+                        value={form.company}
+                        onChange={set("company")}
+                        isDark={isDark}
+                      />
+                      <SelectInput
+                        label="Subject"
+                        value={form.subject}
+                        onChange={set("subject")}
+                        options={subjects}
+                        isDark={isDark}
+                      />
                     </div>
 
                     {/* Row 3: Message */}
-                    <Textarea label="Message" placeholder="Enter your Message" value={form.message} onChange={set('message')} isDark={isDark} />
+                    <Textarea
+                      label="Message"
+                      placeholder="Enter your Message"
+                      value={form.message}
+                      onChange={set("message")}
+                      isDark={isDark}
+                    />
 
                     {/* Submit */}
                     <div className="flex justify-center pt-2">
                       <button
                         type="submit"
                         disabled={loading}
-                        className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-display font-semibold text-sm text-primary hover:text-brand transition-all duration-200 disabled:opacity-60 group"
-                        style={{ border: `1px solid ${isDark ? '#383838' : '#bbb'}` }}
+                        className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-display font-semibold text-sm text-primary hover:text-primary transition-all duration-200 disabled:opacity-60 group"
+                        style={{
+                          border: `1px solid ${isDark ? "#383838" : "#bbb"}`,
+                        }}
                       >
                         {loading ? (
                           <>
@@ -517,7 +620,10 @@ export default function ContactPage() {
                         ) : (
                           <>
                             Send your Inquiry
-                            <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+                            <ArrowRight
+                              size={15}
+                              className="group-hover:translate-x-0.5 transition-transform"
+                            />
                           </>
                         )}
                       </button>
@@ -532,13 +638,13 @@ export default function ContactPage() {
               {[
                 {
                   Icon: MessageCircle,
-                  title: 'Our Response',
-                  body: 'We understand the importance of timely responses, and our team is committed to addressing your inquiries promptly. Whether you have a specific project in mind, need advice on digital strategies, or want to explore partnership opportunities, we are here to assist you at every step.',
+                  title: "Our Response",
+                  body: "We understand the importance of timely responses, and our team is committed to addressing your inquiries promptly. Whether you have a specific project in mind, need advice on digital strategies, or want to explore partnership opportunities, we are here to assist you at every step.",
                 },
                 {
                   Icon: Shield,
-                  title: 'Privacy Assurance',
-                  body: 'We prioritize your privacy and protect your personal information in compliance with data protection regulations. Rest assured that your details will only be used for the purpose of addressing your inquiries and will not be shared with third parties without your consent.',
+                  title: "Privacy Assurance",
+                  body: "We prioritize your privacy and protect your personal information in compliance with data protection regulations. Rest assured that your details will only be used for the purpose of addressing your inquiries and will not be shared with third parties without your consent.",
                 },
               ].map(({ Icon, title, body }, i) => (
                 <motion.div
@@ -551,13 +657,22 @@ export default function ContactPage() {
                     <div className="flex items-center gap-2.5">
                       <div
                         className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                        style={{ background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)', border: `1px solid ${isDark ? '#2a2a2a' : '#d8d8d8'}` }}
+                        style={{
+                          background: isDark
+                            ? "rgba(255,255,255,0.06)"
+                            : "rgba(0,0,0,0.05)",
+                          border: `1px solid ${isDark ? "#2a2a2a" : "#d8d8d8"}`,
+                        }}
                       >
                         <Icon size={15} className="text-secondary" />
                       </div>
-                      <h3 className="font-display font-bold text-sm text-primary">{title}</h3>
+                      <h3 className="font-display font-bold text-sm text-primary">
+                        {title}
+                      </h3>
                     </div>
-                    <p className="text-secondary font-body text-xs leading-relaxed">{body}</p>
+                    <p className="text-secondary font-body text-xs leading-relaxed">
+                      {body}
+                    </p>
                   </Card>
                 </motion.div>
               ))}
@@ -577,8 +692,8 @@ export default function ContactPage() {
                   Join Us on Social Media
                 </h2>
                 <p className="text-secondary font-body text-sm leading-relaxed max-w-md mx-auto">
-                  Stay updated with our latest projects, industry insights, and company news by
-                  following us on social media.
+                  Stay updated with our latest projects, industry insights, and
+                  company news by following us on social media.
                 </p>
               </div>
 
@@ -591,8 +706,13 @@ export default function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-11 h-11 rounded-full flex items-center justify-center border transition-all duration-200 hover:border-brand hover:text-brand text-secondary"
-                    style={{ borderColor: isDark ? '#2a2a2a' : '#d8d8d8', background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)' }}
+                    className="w-11 h-11 rounded-full flex items-center justify-center border transition-all duration-200 hover:border-brand hover:text-primary text-secondary"
+                    style={{
+                      borderColor: isDark ? "#2a2a2a" : "#d8d8d8",
+                      background: isDark
+                        ? "rgba(255,255,255,0.04)"
+                        : "rgba(0,0,0,0.04)",
+                    }}
                   >
                     <Icon size={18} />
                   </a>
@@ -601,10 +721,12 @@ export default function ContactPage() {
 
               {/* Thank you */}
               <div className="pt-4">
-                <h3 className="font-display font-bold text-lg text-primary mb-1.5">Thank You!</h3>
+                <h3 className="font-display font-bold text-lg text-primary mb-1.5">
+                  Thank You!
+                </h3>
                 <p className="text-secondary font-body text-sm">
-                  For considering Us for your digital needs. We look forward to connecting with you and
-                  being part of your digital success!
+                  For considering Us for your digital needs. We look forward to
+                  connecting with you and being part of your digital success!
                 </p>
               </div>
             </motion.div>
@@ -614,5 +736,5 @@ export default function ContactPage() {
 
       <CTABanner />
     </>
-  )
+  );
 }

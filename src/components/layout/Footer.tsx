@@ -1,63 +1,58 @@
-import { Link } from 'react-router-dom'
-import { Linkedin, Twitter, Instagram, ArrowUpRight } from 'lucide-react'
-import { useTheme } from '../../hooks/useTheme'
+import { Link } from "react-router-dom";
+import { Linkedin, Twitter, Instagram, ArrowUpRight } from "lucide-react";
+import { useTheme } from "../../hooks/useTheme";
 
 const footerLinks = {
   Home: [
-    { label: 'Benefits', href: '/#services' },
-    { label: 'Our Testimonials', href: '/#testimonials' },
-    { label: 'Partners', href: '/#partners' },
+    { label: "Benefits", href: "/#services" },
+    { label: "Our Testimonials", href: "/#testimonials" },
+    { label: "Partners", href: "/#partners" },
   ],
   Services: [
-    { label: 'Web Development', href: '/services/web' },
-    { label: 'Mobile App Development', href: '/services/mobile' },
-    { label: 'AI', href: '/services/ai' },
-    { label: 'QA testing', href: '/services/qa' },
-    { label: 'Code Audit & penetration testing', href: '/services/audit' },
-    { label: 'Cloud Computing (AWS)', href: '/services/cloud' },
-    { label: 'Maintenance support', href: '/services/maintenance' },
+    { label: "Web Development", href: "/services/web" },
+    { label: "Mobile App Development", href: "/services/mobile" },
+    { label: "AI", href: "/services/ai" },
+    { label: "QA testing", href: "/services/qa" },
+    { label: "Code Audit & penetration testing", href: "/services/audit" },
+    { label: "Cloud Computing (AWS)", href: "/services/cloud" },
+    { label: "Maintenance support", href: "/services/maintenance" },
   ],
   Careers: [
-    { label: 'Internship', href: '/careers' },
-    { label: 'Hire Developers', href: '/careers#hire' },
+    { label: "Internship", href: "/careers" },
+    { label: "Hire Developers", href: "/careers#hire" },
   ],
-}
+};
 
 const socials = [
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Instagram, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter / X' },
-]
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: Twitter, href: "https://twitter.com", label: "Twitter / X" },
+];
 
 export default function Footer() {
-  const { isDark } = useTheme()
+  const { isDark } = useTheme();
 
   return (
     <footer
       className={`border-t border-subtle ${
-        isDark ? 'bg-[#0a0a0a]' : 'bg-white'
+        isDark ? "bg-[#0a0a0a]" : "bg-white"
       }`}
     >
-      {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Brand col */}
-          <div className="lg:col-span-2 flex flex-col gap-5">
-            <Link to="/" className="inline-block">
-              <span className="font-display text-3xl font-bold text-primary">
-                ae<span className="text-brand">tos</span>
-              </span>
-            </Link>
-            <p className="text-secondary text-sm leading-relaxed max-w-xs font-body">
-              We design and develop digital products for businesses that want
-              systems that work, scale, and make sense.
-            </p>
-            {/* Socials */}
-            <div className="flex items-center gap-3">
-              <span className="text-muted text-xs uppercase tracking-widest font-body">
-                Follow Us On Social Media
-              </span>
-            </div>
+      {/* Top bar: Logo + Socials */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-6">
+          {/* Logo */}
+          <Link to="/" className="inline-block">
+            <span className="font-display text-3xl font-bold text-primary">
+              ae<span className="text-brand">tos</span>
+            </span>
+          </Link>
+
+          {/* Socials */}
+          <div className="flex flex-col items-center sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <span className="text-secondary text-sm font-body hidden md:block">
+              Follow Us On Social Media
+            </span>
             <div className="flex items-center gap-3">
               {socials.map(({ icon: Icon, href, label }) => (
                 <a
@@ -66,22 +61,30 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg border border-subtle text-secondary hover:text-brand hover:border-brand transition-all duration-200"
+                  className="w-10 h-10 flex items-center justify-center rounded-full border border-subtle text-secondary hover:text-brand hover:border-brand transition-all duration-200"
                 >
-                  <Icon size={15} />
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Link columns */}
+      {/* Divider */}
+      <div className="border-t border-subtle" />
+
+      {/* Middle: Nav sections */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {/* Mobile: stacked columns, centered */}
+        <div className="flex flex-col items-center gap-8 md:hidden">
           {Object.entries(footerLinks).map(([section, links]) => (
-            <div key={section} className="flex flex-col gap-4">
-              <h4 className="font-display font-semibold text-sm text-primary uppercase tracking-wider">
+            <div key={section} className="flex flex-col items-center text-center">
+              <h4 className="font-display font-semibold text-sm text-primary uppercase tracking-wider mb-3">
                 {section}
               </h4>
-              <ul className="flex flex-col gap-3">
-                {links.map(link => (
+              <ul className="flex flex-col items-center gap-2">
+                {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.href}
@@ -89,7 +92,7 @@ export default function Footer() {
                     >
                       {link.label}
                       <ArrowUpRight
-                        size={12}
+                        size={11}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       />
                     </Link>
@@ -99,32 +102,94 @@ export default function Footer() {
             </div>
           ))}
         </div>
+
+        {/* Desktop: horizontal layout */}
+        <div className="hidden md:flex md:flex-row md:justify-between gap-8">
+          {Object.entries(footerLinks).map(([section, links]) => (
+            <div
+              key={section}
+              className={
+                section === "Services" ? "flex-1 max-w-sm" : "shrink-0"
+              }
+            >
+              <h4 className="font-display font-semibold text-sm text-primary uppercase tracking-wider mb-4">
+                {section}
+              </h4>
+
+              {section === "Services" ? (
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+                  {links.map((link, i) => (
+                    <span key={link.label} className="flex items-center gap-2">
+                      <Link
+                        to={link.href}
+                        className="text-secondary hover:text-primary text-sm font-body transition-colors duration-200"
+                      >
+                        {link.label}
+                      </Link>
+                      {i < links.length - 1 && (
+                        <span className="text-muted text-xs select-none">•</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <ul className="flex flex-col gap-3">
+                  {links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        to={link.href}
+                        className="text-secondary hover:text-primary text-sm font-body transition-colors duration-200 flex items-center gap-1 group"
+                      >
+                        {link.label}
+                        <ArrowUpRight
+                          size={11}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity"
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Bottom bar */}
       <div
         className={`border-t border-subtle ${
-          isDark ? 'bg-[#080808]' : 'bg-light-card'
+          isDark ? "bg-[#080808]" : "bg-light-card"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-muted text-xs font-body">
             ©{new Date().getFullYear()} Aetos. All Rights Reserved.
           </p>
-          <p className="text-muted text-xs font-body hidden sm:block">Version 1.0</p>
+          <p className="text-muted text-xs font-body hidden sm:block">
+            Version 1.0
+          </p>
           <div className="flex items-center gap-6">
-            <Link to="/privacy" className="text-muted hover:text-secondary text-xs font-body transition-colors">
+            <Link
+              to="/privacy"
+              className="text-muted hover:text-secondary text-xs font-body transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-muted hover:text-secondary text-xs font-body transition-colors">
+            <Link
+              to="/terms"
+              className="text-muted hover:text-secondary text-xs font-body transition-colors"
+            >
               Terms &amp; Conditions
             </Link>
-            <Link to="/cookies" className="text-muted hover:text-secondary text-xs font-body transition-colors">
+            <Link
+              to="/cookies"
+              className="text-muted hover:text-secondary text-xs font-body transition-colors"
+            >
               Cookie Policy
             </Link>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
