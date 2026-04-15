@@ -8,8 +8,8 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Mentorship", href: "/careers/mentorship" },
-  { label: "Hire Talent", href: "/careers/hire" },
+  { label: "Mentorship", href: "/enrol" },
+  { label: "Hire Talent", href: "/hire" },
 ];
 
 export default function Navbar() {

@@ -4,22 +4,23 @@ import { useTheme } from "../../hooks/useTheme";
 
 const footerLinks = {
   Home: [
-    { label: "Benefits", href: "/#services" },
-    { label: "Our Testimonials", href: "/#testimonials" },
-    { label: "Partners", href: "/#partners" },
+    { label: "Contact", href: "/contact" },
+    { label: "Projects", href: "/projects" },
+    // { label: "Mentorship", href: "/enrol" },
+
   ],
   Services: [
     { label: "Web Development", href: "/contact" },
     { label: "Mobile App Development", href: "/contact" },
-    { label: "AI", href: "/services/ai" },
-    { label: "QA testing", href: "/services/qa" },
+    { label: "AI", href: "/contact" },
+    { label: "QA testing", href: "/contact" },
     { label: "Code Audit & penetration testing", href: "/contact" },
     { label: "Cloud Computing (AWS)", href: "/contact" },
     { label: "Maintenance support", href: "/contact" },
   ],
   Careers: [
-    { label: "Internship", href: "/careers" },
-    { label: "Hire Developers", href: "/careers#hire" },
+    { label: "Mentorship", href: "/enrol" },
+    { label: "Hire Developers", href: "/hire" },
   ],
 };
 
