@@ -34,7 +34,11 @@ const socials = [
     href: "https://www.instagram.com/aetosagency_atfm?igsh=MXhzc2VvdGV4NWwwaA==",
     label: "Instagram",
   },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter / X" },
+  {
+    icon: Twitter,
+    href: "https://x.com/AetosTalent?t=Sj5mBgcHWhP2OQSLqEg74A&s=09",
+    label: "Twitter / X",
+  },
 ];
 
 export default function Footer() {
