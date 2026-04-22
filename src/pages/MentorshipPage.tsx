@@ -596,7 +596,7 @@ export default function MentorshipPage() {
           </div>
 
           {/* ── Countdown Badge — top-right of hero ── */}
-          <div className="absolute top-23 right-4 sm:right-8 z-20">
+          <div className="absolute top-23 right-4 hidden md:block md:right-8 z-20">
             <CountdownBadge isDark={isDark} />
           </div>
 
@@ -609,7 +609,7 @@ export default function MentorshipPage() {
               className="flex justify-center mb-6"
             >
               <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xl font-display font-semibold text-primary"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-base md:text-xl font-display font-semibold text-primary"
                 style={{
                   background: isDark
                     ? "rgba(127,255,0,0.08)"
@@ -895,18 +895,24 @@ export default function MentorshipPage() {
 
           {/* Apply CTA */}
           <div className="flex flex-col items-center gap-2 py-4">
-            <button
-              onClick={() => openModalById("internship")}
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-display font-semibold text-sm text-primary hover:text-primary transition-all duration-200 group"
-              style={{ border: `1px solid ${isDark ? "#383838" : "#bbb"}` }}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex justify-center mt-10 gap-3"
             >
-              Apply Now
-              <ArrowRight
-                size={15}
-                className="group-hover:translate-x-0.5 transition-transform"
-              />
-            </button>
-            <p className="text-muted text-xs font-body">
+              <button
+                onClick={() => openModalById("internship")}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-display font-bold text-sm bg-white text-black hover:opacity-90 transition-all duration-200 group"
+              >
+                Apply Now
+                <ArrowRight
+                  size={15}
+                  className="group-hover:translate-x-0.5 transition-transform"
+                />
+              </button>
+            </motion.div>
+            <p className="text-muted text-sm font-body mt-1">
               Questions? Email us at{" "}
               <a
                 href="mailto:talent@aetos.com.ng"
@@ -921,6 +927,8 @@ export default function MentorshipPage() {
           <ValueCard isDark={isDark} />
         </div>
       </div>
+
+      <CountdownBadge isDark={isDark} />
 
       <CTABanner />
     </>
