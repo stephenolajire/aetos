@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Filter, Loader2, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Filter, Loader2, ExternalLink, Download } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
 import { 
   collection, 
@@ -34,7 +34,6 @@ export default function AdminSubmissions() {
         setLoading(true)
         setError(null)
 
-        // Fetch all submissions
         const contactDocs = await getDocs(collection(db, 'contact_messages'))
         const consultationDocs = await getDocs(collection(db, 'consultation_requests'))
         const mentorshipDocs = await getDocs(collection(db, 'mentorship_applications'))
@@ -66,7 +65,6 @@ export default function AdminSubmissions() {
           })),
         ]
 
-        // Sort by date descending
         allSubmissions.sort((a, b) => {
           const dateA = a.createdAt?.toDate?.() || new Date(a.createdAt)
           const dateB = b.createdAt?.toDate?.() || new Date(b.createdAt)
@@ -87,12 +85,75 @@ export default function AdminSubmissions() {
     fetchSubmissions()
   }, [])
 
-  // Filter submissions
+  const handleExport = () => {
+    const dataToExport = filterType === 'all' 
+      ? submissions 
+      : submissions.filter(s => s.formType === filterType)
+
+    if (dataToExport.length === 0) return
+
+    // 1. Define a strict order for common fields
+    const priorityKeys = ['name', 'fullName', 'email', 'phone', 'phoneNumber']
+    const blacklistedKeys = ['createdAt', 'id', 'formType'] // Already handled or unnecessary
+
+    // 2. Identify all unique keys present in the fullData
+    const otherKeys = new Set<string>()
+    dataToExport.forEach(s => {
+      Object.keys(s.fullData).forEach(key => {
+        if (!priorityKeys.includes(key) && !blacklistedKeys.includes(key)) {
+          otherKeys.add(key)
+        }
+      })
+    })
+
+    // 3. Finalize the Header sequence
+    // This ensures Name/Email/Phone are always the first few columns
+    const finalHeaders = [
+      'Submission_ID', 
+      'Form_Type', 
+      'Date_Created', 
+      ...priorityKeys.filter(k => dataToExport.some(s => s.fullData[k] !== undefined)), 
+      ...Array.from(otherKeys)
+    ]
+
+    // 4. Construct CSV Rows with strict mapping to the header
+    const csvRows = dataToExport.map(s => {
+      const date = s.createdAt?.toDate?.() || new Date(s.createdAt)
+      
+      return finalHeaders.map(header => {
+        let value: any = ''
+
+        // Map data based on header name
+        if (header === 'Submission_ID') value = s.id
+        else if (header === 'Form_Type') value = s.formType
+        else if (header === 'Date_Created') value = date.toLocaleString()
+        else value = s.fullData[header] || ''
+
+        // Sanitize string to prevent column shifting
+        const sanitized = String(value)
+          .replace(/\n/g, ' ') // Remove newlines
+          .replace(/"/g, '""') // Escape quotes
+        
+        return `"${sanitized}"`
+      }).join(',')
+    })
+
+    // 5. Download
+    const csvContent = [finalHeaders.join(','), ...csvRows].join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.setAttribute('href', url)
+    link.setAttribute('download', `submissions_${filterType}_${new Date().toISOString().split('T')[0]}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const filteredSubmissions = filterType === 'all' 
     ? submissions 
     : submissions.filter(s => s.formType === filterType)
 
-  // Paginate
   const totalPages = Math.ceil(filteredSubmissions.length / ITEMS_PER_PAGE)
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE
   const paginatedSubmissions = filteredSubmissions.slice(startIdx, startIdx + ITEMS_PER_PAGE)
@@ -105,7 +166,6 @@ export default function AdminSubmissions() {
 
   return (
     <div style={{ background: isDark ? '#0a0a0a' : '#f5f5f3', minHeight: '100vh' }}>
-      {/* Header */}
       <div
         className="border-b"
         style={{
@@ -114,24 +174,40 @@ export default function AdminSubmissions() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <button
-            onClick={() => navigate('/admin/dashboard')}
-            className="inline-flex items-center gap-2 text-sm mb-4"
-            style={{ color: '#7fff00' }}
-          >
-            <ArrowLeft size={16} />
-            Back to Dashboard
-          </button>
-          <h1 className="text-2xl font-bold" style={{ color: isDark ? '#fff' : '#000' }}>
-            All Submissions
-          </h1>
-          <p className="text-sm mt-1" style={{ color: isDark ? '#888' : '#666' }}>
-            Total: {filteredSubmissions.length} submissions
-          </p>
+          <div className="flex justify-between items-start">
+            <div>
+              <button
+                onClick={() => navigate('/admin/dashboard')}
+                className="inline-flex items-center gap-2 text-sm mb-4"
+                style={{ color: '#7fff00' }}
+              >
+                <ArrowLeft size={16} />
+                Back to Dashboard
+              </button>
+              <h1 className="text-2xl font-bold" style={{ color: isDark ? '#fff' : '#000' }}>
+                All Submissions
+              </h1>
+              <p className="text-sm mt-1" style={{ color: isDark ? '#888' : '#666' }}>
+                Total: {filteredSubmissions.length} submissions
+              </p>
+            </div>
+            
+            <button
+              onClick={handleExport}
+              disabled={filteredSubmissions.length === 0}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50"
+              style={{
+                background: '#7fff00',
+                color: '#000',
+              }}
+            >
+              <Download size={16} />
+              Export {filterType === 'all' ? 'All' : filterType} Data to CSV
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {error && (
           <div
@@ -146,7 +222,6 @@ export default function AdminSubmissions() {
           </div>
         )}
 
-        {/* Filter Bar */}
         <div
           className="rounded-xl p-4 border mb-6 flex items-center justify-between flex-wrap gap-4"
           style={{
@@ -181,7 +256,6 @@ export default function AdminSubmissions() {
           </div>
         </div>
 
-        {/* Submissions Table */}
         {loading ? (
           <div className="flex items-center justify-center py-24">
             <div className="text-center">
@@ -201,7 +275,6 @@ export default function AdminSubmissions() {
           </div>
         ) : (
           <>
-            {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
               <div
                 className="rounded-xl border overflow-hidden"
@@ -218,47 +291,24 @@ export default function AdminSubmissions() {
                         borderBottom: `1px solid ${isDark ? '#1e1e1e' : '#e0e0e0'}`,
                       }}
                     >
-                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>
-                        Name
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>
-                        Email
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>
-                        Type
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>
-                        Date
-                      </th>
-                      <th className="px-6 py-3 text-center text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>
-                        Action
-                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>Type</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>Date</th>
+                      <th className="px-6 py-3 text-center text-xs font-semibold" style={{ color: isDark ? '#888' : '#666' }}>Action</th>
                     </tr>
                   </thead>
-                  <tbody
-                    style={{ borderColor: isDark ? '#1e1e1e' : '#e0e0e0' }}
-                    className="divide-y"
-                  >
+                  <tbody style={{ borderColor: isDark ? '#1e1e1e' : '#e0e0e0' }} className="divide-y">
                     {paginatedSubmissions.map((submission) => {
                       const createdDate = submission.createdAt?.toDate?.() || new Date(submission.createdAt)
                       const typeInfo = formTypeInfo[submission.formType]
 
                       return (
                         <tr key={submission.id}>
-                          <td className="px-6 py-4 text-sm font-medium" style={{ color: isDark ? '#f0f0f0' : '#111' }}>
-                            {submission.name}
-                          </td>
-                          <td className="px-6 py-4 text-sm" style={{ color: isDark ? '#aaa' : '#555' }}>
-                            {submission.email}
-                          </td>
+                          <td className="px-6 py-4 text-sm font-medium" style={{ color: isDark ? '#f0f0f0' : '#111' }}>{submission.name}</td>
+                          <td className="px-6 py-4 text-sm" style={{ color: isDark ? '#aaa' : '#555' }}>{submission.email}</td>
                           <td className="px-6 py-4 text-sm">
-                            <span
-                              className="px-2 py-1 rounded-full text-xs font-medium"
-                              style={{
-                                background: `${typeInfo.color}22`,
-                                color: typeInfo.color,
-                              }}
-                            >
+                            <span className="px-2 py-1 rounded-full text-xs font-medium" style={{ background: `${typeInfo.color}22`, color: typeInfo.color }}>
                               {typeInfo.label}
                             </span>
                           </td>
@@ -269,10 +319,7 @@ export default function AdminSubmissions() {
                             <button
                               onClick={() => navigate(`/admin/submissions/${submission.id}?type=${submission.formType}`)}
                               className="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all"
-                              style={{
-                                background: isDark ? 'rgba(127, 255, 0, 0.08)' : 'rgba(127, 255, 0, 0.05)',
-                                color: '#7fff00',
-                              }}
+                              style={{ background: isDark ? 'rgba(127, 255, 0, 0.08)' : 'rgba(127, 255, 0, 0.05)', color: '#7fff00' }}
                             >
                               <ExternalLink size={14} />
                             </button>
@@ -285,88 +332,22 @@ export default function AdminSubmissions() {
               </div>
             </div>
 
-            {/* Mobile Cards */}
-            <div className="md:hidden space-y-3">
-              {paginatedSubmissions.map((submission) => {
-                const createdDate = submission.createdAt?.toDate?.() || new Date(submission.createdAt)
-                const typeInfo = formTypeInfo[submission.formType]
-
-                return (
-                  <div
-                    key={submission.id}
-                    className="rounded-lg p-4 border"
-                    style={{
-                      background: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
-                      borderColor: isDark ? '#1e1e1e' : '#e0e0e0',
-                    }}
-                  >
-                    <div className="flex items-start justify-between gap-3 mb-2">
-                      <div>
-                        <p style={{ color: isDark ? '#f0f0f0' : '#111' }} className="font-medium text-sm">
-                          {submission.name}
-                        </p>
-                        <p style={{ color: isDark ? '#666' : '#aaa' }} className="text-xs">
-                          {submission.email}
-                        </p>
-                      </div>
-                      <span
-                        className="px-2 py-1 rounded-full text-xs font-medium shrink-0"
-                        style={{
-                          background: `${typeInfo.color}22`,
-                          color: typeInfo.color,
-                        }}
-                      >
-                        {typeInfo.label}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <p style={{ color: isDark ? '#666' : '#aaa' }} className="text-xs">
-                        {createdDate.toLocaleDateString()}
-                      </p>
-                      <button
-                        onClick={() => navigate(`/admin/submissions/${submission.id}?type=${submission.formType}`)}
-                        className="text-xs font-medium"
-                        style={{ color: '#7fff00' }}
-                      >
-                        View
-                      </button>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-
-            {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-between mt-8">
-                <p style={{ color: isDark ? '#888' : '#666' }} className="text-sm">
-                  Page {currentPage} of {totalPages}
-                </p>
+                <p style={{ color: isDark ? '#888' : '#666' }} className="text-sm">Page {currentPage} of {totalPages}</p>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
                     className="px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50"
-                    style={{
-                      background: isDark ? 'rgba(127, 255, 0, 0.08)' : 'rgba(127, 255, 0, 0.05)',
-                      color: '#7fff00',
-                      border: '1px solid rgba(127, 255, 0, 0.2)',
-                    }}
-                  >
-                    Previous
-                  </button>
+                    style={{ background: isDark ? 'rgba(127, 255, 0, 0.08)' : 'rgba(127, 255, 0, 0.05)', color: '#7fff00', border: '1px solid rgba(127, 255, 0, 0.2)' }}
+                  >Previous</button>
                   <button
                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
                     className="px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-50"
-                    style={{
-                      background: isDark ? 'rgba(127, 255, 0, 0.08)' : 'rgba(127, 255, 0, 0.05)',
-                      color: '#7fff00',
-                      border: '1px solid rgba(127, 255, 0, 0.2)',
-                    }}
-                  >
-                    Next
-                  </button>
+                    style={{ background: isDark ? 'rgba(127, 255, 0, 0.08)' : 'rgba(127, 255, 0, 0.05)', color: '#7fff00', border: '1px solid rgba(127, 255, 0, 0.2)' }}
+                  >Next</button>
                 </div>
               </div>
             )}
