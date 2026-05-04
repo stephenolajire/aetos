@@ -167,7 +167,7 @@ function Input({
         placeholder={placeholder}
         value={value}
         required={required}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={e => onChange(e.target.value)}
         className="w-full rounded-lg px-4 py-3 text-sm font-body text-primary placeholder:text-muted outline-none transition-all duration-200"
         style={{
           background: isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)",
